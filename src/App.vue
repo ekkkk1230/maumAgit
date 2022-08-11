@@ -1,26 +1,46 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <isLoading :isLoading="isLoading"/>
+
+    <router-view></router-view>
+    <!-- <login></login> -->
+    <Footer></Footer>
+  </div>
+ <!--  <nav>
+    <router-link to="/addList">addList</router-link> |
+    <router-link to="/">Home</router-link> |
+    <router-link to="/settingView">setting</router-link> |
+    <router-link to="/about">About</router-link>
+  </nav> -->
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import isLoading from './components/Splesh.vue';
+import Login from './views/Login.vue';
+import Footer from './components/Footer.vue';
+
 
 export default {
   name: 'App',
+  data() {
+    return {
+      isLoading : true,
+    }
+  },
   components: {
-    HelloWorld
-  }
+    Login : Login,
+    Footer : Footer,
+    isLoading : isLoading,
+  },
+  mounted() {
+    setTimeout(()=>{
+      this.isLoading=false;
+    }, 2000)
+  },
 }
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
