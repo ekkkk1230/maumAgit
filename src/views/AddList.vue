@@ -20,7 +20,10 @@
             <div class="list-top">
                 <!-- 달력버튼 -->
                 <div class="calendar">
+                    <router-link to="/DiaryMain">
                     <button><img src="../assets/addListView/calendar.png" alt="달력에서선택" width="30"></button>
+                    </router-link>
+
                 </div>
                 <!-- 오늘 날짜 -->
                 <div class="today">
@@ -61,10 +64,12 @@
                         <!-- !!!!(07.29) : 시온이꺼 복붙 -->
                         <!-- ???? : 체크박스로 만들어서 중복체크 됨 -->
                         <form class="form_diary_radio">
-                            <div class="checkbox">
-                                <input class="checkbox1" type="checkbox" id="checkbox1" value="일기" name="diary">
-                                <label for="checkbox1">일기</label>
-                            </div>
+                            <router-link to="ListDairy" class="checkbox">
+                                <div class="checkbox">
+                                    <input class="checkbox1" type="checkbox" id="checkbox1" value="일기" name="diary">
+                                    <label for="checkbox1">일기</label>
+                                </div>
+                            </router-link>
                             <div class="checkbox">
                                 <input class="checkbox2" type="checkbox" id="checkbox2" value="리스트" name="list">
                                 <label for="checkbox2">리스트</label>

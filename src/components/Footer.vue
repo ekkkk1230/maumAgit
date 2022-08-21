@@ -1,7 +1,7 @@
 <template>
     <footer>
         <div class="footer_all">
-            <router-link to="/Healing">
+            <router-link to="Healing">
                 <div class="healing">
                     <img src="../assets/addListView/footer_healing.png" width="30" alt="healing">
                     <p>힐링</p>
@@ -13,7 +13,7 @@
                     <p>일지</p>
                 </div>
             </router-link>
-            <router-link to="/Login">
+            <router-link to="/index">
                 <div class="home">
                     <img src="../assets/addListView/footer_home.png" width="80" alt="home">
                 </div>

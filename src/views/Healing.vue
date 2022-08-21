@@ -191,6 +191,7 @@ p.h2_p{
     max-width: 767px;
     min-width: 425px;
     margin: 0 auto;
+    overflow: hidden;
     /* border: 1px solid #000; */
 }
 

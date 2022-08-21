@@ -14,6 +14,12 @@
 <template>
     <div class="wrap">
         <!-- 헤더 -->
+<!--         <header>
+            <div class="btns">
+                <h1>SHOP</h1>
+                <a class='cart_bt'><img src="../assets/shopView/shop_cart_bt.png" alt="장바구니"></a>
+            </div>
+        </header> -->
         <header>
             <div class="btns">
                 <h1>SHOP</h1>
@@ -34,12 +40,12 @@
                     <a class="view_all" href="#none">View all <img src="../assets/shopView/shop_viewAll_bt.png" alt="상품 전체보기"></a>
                 </div>
 
-                <swiper :slides-per-view="3.5" :space-between="25" navigation>
-                    <swiper-slide v-for="(item) in 5" :key="item">
-                        <div class="inside-wrapper">
+                <swiper :slides-per-view="2.5" :space-between="25" navigation>
+                    <swiper-slide v-for="(popularItem,i) in popularItems" :key="i">
+                        <div class="inside-wrapper" :style="`background-image:url(${popularItems[i].img})`">
                             <div class="item_info">
-                                <p class="name">마음안정 디퓨저</p>
-                                <p class="price"><span>28,000원</span> 14,000원</p>
+                                <p class="name">{{popularItems[i].name}}</p>
+                                <p class="price"><span>{{popularItems[i].price}}</span> {{popularItems[i].discount}}원</p>
                             </div>
                         </div>
                     </swiper-slide>
@@ -102,7 +108,14 @@
                     <a class="view_all" href="#none">View all <img src="../assets/shopView/shop_viewAll_bt.png" alt="상품 전체보기"></a>
                 </div>
                 <!-- 상품 -->
-                <div class="product">
+                <div class="product" v-for="(newItem,i) in newItems" :key=i>
+                    <div class="product_img" :style="`background-image:url(${newItems[i].img})`"></div>
+                    <div class="product_info">
+                        <p class="name">{{newItems[i].name}}</p>
+                        <p class="price"><span>{{newItems[i].price}}</span> {{newItems[i].discount}}원</p>
+                    </div>
+                </div>
+                <!-- <div class="product">
                     <div class="product_img"><img src="../assets/shopView/shop_productImg_01.jpg" alt="상품이미지"></div>
                     <div class="product_info">
                         <p class="name">마음안정 디퓨저</p>
@@ -122,15 +135,19 @@
                         <p class="name">마음안정 디퓨저</p>
                         <p class="price"><span>28,000원</span> 14,000원</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </section>
         <!-- //// 푸터 //// -->
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
 import Footer from '../components/Footer.vue';
+
+import popularItems from '../data/popularItem.js';
+import newItems from '../data/newItem.js';
 
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -139,8 +156,13 @@ SwiperCore.use(Navigation);
 
 export default {
     name: 'shop',
+    data(){
+        return{
+            popularItems : popularItems,
+            newItems : newItems
+        }
+    },
     components: {
-        Footer,
         Swiper,
         SwiperSlide,
     }
@@ -205,17 +227,17 @@ body::-webkit-scrollbar {
 /* //// 레이아웃 시작 //// */
 
 .wrap {
-    width: 100%;
     max-width: 767px;
     min-width: 425px;
-    margin: 0 auto;
+    width: calc(100% - 40px);
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+
     /* border: 1px solid #000; */
 
     /* 개별추가 */
-    width: calc(100% - 40px);
-    max-width: calc(767px - 40px);
-    min-width: calc(425px - 40px);
-    overflow: hidden;
+
 }
 
 h1 {
@@ -243,7 +265,7 @@ header {
 }
 
 .btns {
-    width: calc(100% - 40px);
+    width: 100%;
     height: 27px;
     display: flex;
     justify-content: space-between;
@@ -252,9 +274,10 @@ header {
     /* background-color: yellow; */
 }
 
-.cart_bt {
+/* 헤더 삭제한 부분 */
+/* .cart_bt {
     width: 27px;
-}
+} */
 
 /* //// 섹션 //// */
 section{
@@ -303,13 +326,13 @@ section{
 /* 인풋에 x버튼 안생기게하는 코드 */
 input::-ms-clear,
 input::-ms-reveal{
-	display:none; width:0; height:0;
+   display:none; width:0; height:0;
 }
 input::-webkit-search-decoration,
 input::-webkit-search-cancel-button,
 input::-webkit-search-results-button,
 input::-webkit-search-results-decoration{
-	display:none;
+   display:none;
 }
 
 
@@ -351,6 +374,7 @@ input::-webkit-search-results-decoration{
 }
 .swiper-slide {
   display: flex;
+  /* flex: 0 0 170px; */
   justify-content: center;
   align-items: center;
 }
@@ -452,6 +476,63 @@ input::-webkit-search-results-decoration{
     font-weight: 600;
     color: #666;
 }
+/* 상품 */
+.popular .silde_box {
+    /* !!!!(07.28) : 너비,높이수정 */
+    width: 160px;
+    height: 220px;
+    background-color: #CEDFCC;
+    /* !!!!(07.28) : 마진R 수정 */
+    margin-right: 20px;
+    /* !!!!(07.28) : 모서리값수정 */
+    border-radius: 25px;
+    overflow: hidden;
+    /* !!!!(07.28) : 추가 */
+    letter-spacing: -1px;
+    /* float: left; */
+}
+
+.popular .product_img {
+    /* !!!!(07.28) : 너비수정 */
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+}
+
+.popular .product_img img {
+    width: 100%;
+}
+
+/* 상품정보 묶음 */
+.popular .product_info {
+    width: 90%;
+    /* !!!!(07.28) : margin-top수정 */
+    margin: 6px auto;
+    text-align: center;
+}
+
+/* !!!!(07.28) : 수정 */
+/* 상품-이름 */
+.popular .name {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* !!!!(07.28) : 수정 */
+/* 상품-할인가격 */
+.popular .price {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+/* 상품-원래가격 */
+.popular .price span {
+    text-decoration: line-through red;
+/* !!!!(07.28) : 글꼴수정 */
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+}
 
 /* 새상품 */
 .new {
@@ -490,6 +571,7 @@ input::-webkit-search-results-decoration{
     height: 150px;
     overflow: hidden;
     border-radius: 25px;
+    background-size: cover;
 }
 
 /* .new .product {
@@ -508,9 +590,9 @@ input::-webkit-search-results-decoration{
     border-radius: 20px;
 }
  */
-.new .product_img img {
+/* .new .product_img img {
     width: 100%;
-}
+} */
 
 /* 상품정보 묶음 */
 .new .product_info {

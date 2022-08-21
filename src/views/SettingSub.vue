@@ -15,9 +15,9 @@
         <h1 class="hidden">앱 설정</h1>
         <!-- //// 헤더 //// -->
         <header>
-            <a href="#none" class="back_bt">
+            <router-link to="/SettingMain" class="back_bt">
                 <img src="../assets/settingSubview/back_bt.png" width="11" alt="뒤로가기"><span>앱 설정</span>
-            </a>
+            </router-link>
         </header>
         <!-- //// 섹션 //// -->
         <section>
@@ -40,7 +40,8 @@
             
             <!-- 하단ui 묶음 -->
             <div class="bottom_wrap">
-                <button class="logout_bt">로그아웃</button>
+                <!-- <button @click="kakaoLogout" class="logout_bt">로그아웃</button> -->
+                <button @click="goLogin" class="logout_bt">로그아웃</button>
                 <p class="version">App 버전 1.0</p>
             </div>
         </section>
@@ -55,7 +56,33 @@ export default {
     name: 'settingSub',
     components: {
         Footer : Footer,
+    },
+    methods:{
+        goLogin(){
+            this.$router.push({
+                path: 'Login'
+            })
+        }
     }
+/*     computed: {
+      user () {
+        return this.$store.state.user
+      }
+    },
+    methodes: {
+        kakaoLogout () {
+        window.Kakao.Auth.logout((response) => {
+          console.log(response)
+          this.$store.commit('user', {}) // 변경된 사항 저장
+          alert('로그아웃');
+          this.$router.push({ path: '/' }) // 저장된거 서버에 업로드
+        
+          this.$router.push({
+            path: 'Login'
+          })
+        })
+      },
+    } */
 
 }
 </script>

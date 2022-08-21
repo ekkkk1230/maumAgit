@@ -1,10 +1,9 @@
 <template>
   <div class="app">
     <isLoading :isLoading="isLoading"/>
-
     <router-view></router-view>
     <!-- <login></login> -->
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
   </div>
  <!--  <nav>
     <router-link to="/addList">addList</router-link> |

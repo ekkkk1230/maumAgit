@@ -7,11 +7,11 @@
             <div class="list_top">
                 <!-- 달력버튼 -->
                 <!-- !!!!(07.28) : 테스트용 -->
-                <a href="list-add.html" class="calendar">
+                <router-link to="/DiaryMain" class="calendar">
                     <button type="button" >
                         <img src="../assets/listDairyView/dairy_bt.png" alt="달력버튼" width="30">
                     </button>
-                </a>
+                </router-link>
 <!--                 <div class="calendar">
                     <button type="button" >
                         <img src="../assets/listDairyView/dairy_bt.png" alt="달력버튼" width="30">
@@ -59,10 +59,12 @@
                                 <input class="checkbox1" type="checkbox" id="checkbox1" value="일기" name="diary">
                                 <label for="checkbox1">일기</label>
                             </div>
-                            <div class="checkbox">
-                                <input class="checkbox2" type="checkbox" id="checkbox2" value="리스트" name="list">
-                                <label for="checkbox2">리스트</label>
-                            </div>
+                            <router-link to="/AddList">
+                                <div class="checkbox">
+                                    <input class="checkbox2" type="checkbox" id="checkbox2" value="리스트" name="list">
+                                    <label for="checkbox2">리스트</label>
+                                </div>
+                            </router-link>
                         </form>
 
                     </div>

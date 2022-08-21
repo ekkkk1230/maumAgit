@@ -49,9 +49,6 @@
                         <img src="../assets/indexView/main_profile_img.png">
                     </div>
                 </a>
-                <!-- <div class="profile_img">
-                    <img src="../assets/indexView/main_profile_img.png">
-                </div> -->
             </div>
         </header>
 
@@ -62,15 +59,28 @@
                 <!-- <h2>Healing product</h2> -->
                 <div class="slide_container">
 
-                    <div class="slide_img" v-for="(a,i) in healingBanner" :key="i">
-                        <img :src="healingBanner[i].img" alt="힐링상품 배너" draggable="false">
-                        <p>{{ healingBanner[i].content }}</p>
+                    <div class="slide_img" v-for="(a,i) in healingBanners" :key="i">
+                        <img :src="healingBanners[i].img" alt="힐링상품 배너" draggable="false">
+                        <p>{{ healingBanners[i].content }}</p>
                     </div>
                 </div>
             </div>
 
             <!-- 인기 미디어 목록 -->
             <div class="popular">
+                <h2>Popular meditation</h2>
+                <swiper :slides-per-view="2.5" :space-between="10" navigation>
+                    <swiper-slide v-for="(a,i) in popularMedias" :key="i">
+                        <div class="inside-wrapper">
+                            <div class="img" :style="{ backgroundImage : `url(${popularMedias[i].img})`}">
+                                <div class="title">{{a.content}}</div>
+                                <div class="icon"><img src="../assets/indexView/main_contentsPlay_icon.png" alt="인기미디어-플레이"></div>
+                            </div>
+                        </div>
+                    </swiper-slide>
+                </swiper>
+            </div>
+            <!-- <div class="popular">
                 <h2>Popular meditation</h2>
                 <div class="slide_container">
                     <div class="silde_box" v-for="(a,i) in popular" :key="i" :style="{ backgroundImage : `url(${popular[i].img})`, backgroundSize : 'cover' }">
@@ -80,19 +90,29 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 새로운 미디어 목록 -->
             <div class="new">
                 <h2>New meditation</h2>
-                <div class="slide_container">
-                    <div class="silde_box" v-for="(a,i) in newMedia" :key="i" :style="{ backgroundImage : `url(${newMedia[i].img})`, backgroundSize : 'cover' }">
+                <swiper :slides-per-view="2.5" :space-between="10" navigation>
+                    <swiper-slide v-for="(a,i) in newMedias" :key="i">
+                        <div class="inside-wrapper">
+                            <div class="img">
+                                <div class="title">{{a.content}}</div>
+                                <div class="icon"><img src="../assets/indexView/main_contentsPlay_icon.png" alt="인기미디어-플레이"></div>
+                            </div>
+                        </div>
+                    </swiper-slide>
+                </swiper>
+                <!-- <div class="slide_container">
+                    <div class="silde_box" v-for="(a,i) in newMedia" :key="i" :style="{ backgroundImage : `url(${newMedia[i].img})`}">
                         <div class="contents_field">
                             <p>{{ newMedia[i].content }}</p>
                             <img src="../assets/indexView/main_contentsPlay_icon.png" alt="새미디어-플레이">
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- 힐링클래스 배너 -->
@@ -100,12 +120,12 @@
                 <h2 class="class">Class</h2>
                 <div class="class_banner_slide">
                     <div class="slide_container">
-                        <div class="slide_img" v-for="(a,i) in classBanner" :key="i">
+                        <div class="slide_img" v-for="(a,i) in classBanners" :key="i">
                             <div class="text_field">
                                 <p class="title">OFFLINE CLASS 1<span>기 모집중</span></p>
-                                <p class="content">{{ classBanner[i].content }}</p>
+                                <p class="content">{{ classBanners[i].content }}</p>
                                 </div>
-                                <img :src="classBanner[i].img" alt="힐링클래스-배너" draggable="false">
+                                <img :src="classBanners[i].img" alt="힐링클래스-배너" draggable="false">
                         </div>
                     </div>
                 </div>
@@ -118,72 +138,31 @@
 
 <script>
 import Footer from '../components/Footer.vue';
-// import Splesh from './Splesh.vue';
+
+import SwiperCore, { Navigation } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/swiper-bundle.min.css";
+SwiperCore.use(Navigation);
+
+import healingBanners from '../data/healingBanner.js';
+import popularMedias from '../data/popularMedia.js';
+import newMedias from '../data/newMedia.js';
+import classBanners from '../data/classBanner.js';
 
 export default {
     data() {
         return {
             intro : true,
-            healingBanner : [
-                {
-                    img : require('../assets/indexView/main_healingBannerImg_00.jpg'),
-                    content : '일상 속 휴식선물 01',
-                },
-                {
-                    img : require('../assets/indexView/main_healingBannerImg_01.jpg'),
-                    content : '일상 속 휴식선물 02',
-                },
-                {
-                    img : require('../assets/indexView/main_healingBannerImg_02.jpg'),
-                    content : '일상 속 휴식선물 03',
-                }],
-            popular : [
-                {
-                    content : `우주와 함께하는
-                    시간00`,
-                    img : require('../assets/indexView/main_popular_00.jpg'),
-                },
-                                {
-                    content : `우주와 함께하는
-                    시간01`,
-                    img : require('../assets/indexView/main_popular_01.jpg'),
-                },
-                                {
-                    content : `우주와 함께하는
-                    시간02`,
-                    img : require('../assets/indexView/main_popular_02.jpg'),
-                }],
-                newMedia : [
-                {
-                    content : `마음 속 평안을
-                    찾는 여행00`,
-                    img : require('../assets/indexView/main_new_00.jpg'),
-                },
-                {
-                    content : `마음 속 평안을
-                    찾는 여행01`,
-                    img : require('../assets/indexView/main_new_01.jpg'),
-                },
-                {
-                    content : `마음 속 평안을
-                    찾는 여행02`,
-                    img : require('../assets/indexView/main_new_02.jpg'),
-                }],
-                classBanner : [
-                {
-                    img : require('../assets/indexView/main_classBannerImg_00.jpg'),
-                },
-                {
-                    img : require('../assets/indexView/main_classBannerImg_01.jpg'),
-                },
-                {
-                    img : require('../assets/indexView/main_classBannerImg_02.jpg'),
-                }],
+            healingBanners,
+            popularMedias,
+            newMedias,
+            classBanners
         }
     },
     components: {
         Footer : Footer,
-        // Splesh : Splesh,
+        Swiper,
+        SwiperSlide,
     },
     mounted() {
 
@@ -277,11 +256,14 @@ h2 {
 }
 
 .wrap {
-    width: 100%;
     max-width: 767px;
     min-width: 425px;
-    margin: 0 auto;
+    width: calc(100% - 40px);
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
     /* border: 1px solid #000; */
+    overflow: hidden;
 }
 
 /* //// 헤더 //// */
@@ -483,13 +465,80 @@ section {
 
 /* 인기 미디어 목록 */
 .popular {
-    width: calc(100% - 40px);
     height: auto;
     margin: 50px auto;
     /* border: 1px solid #333; */
 }
+.popular .swiper-button-next, .swiper-button-prev{
+    width: 0;
+}
+.popular .inside-wrapper {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  position: relative;
+}
+.popular .inside-wrapper .img{
+    width: 100%;
+    height: 90%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 30px;
+    position: relative;
+}
+.popular .inside-wrapper .img .title{
+    color: #ffffff;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 80%;
+}
+.popular .inside-wrapper .img .icon{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+.popular .swiper-slide:nth-child(1) .inside-wrapper{
+    background: url(../assets/indexView/main_contentsPlay_icon.png) center no-repeat;
+    background-size: contain;
+}
+.popular .swiper-slide:nth-child(2) .inside-wrapper{
+    background: url(../assets/indexView/main_contentsPlay_icon.png) center no-repeat;
+    background-size: contain;
+}
+.popular .swiper-slide:nth-child(3) .inside-wrapper{
+    background: url(../assets/indexView/main_contentsPlay_icon.png) center no-repeat;
+    background-size: contain;
+}
+.popular .swiper-container {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 2rem auto;
+}
+.popular .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popular .swiper-wrapper {
+  width: max-content;
+  display: flex;
+}
 
-.popular .slide_container {
+.popular .inside-wrapper .item_info{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 50px;
+    background-color: #CEDFCC;
+    border-radius: 0 0 30px 30px;
+    text-align: center;
+}
+
+/* .popular .slide_container {
     width: 300%;
     display: flex;
     transition: all .5s;
@@ -501,10 +550,10 @@ section {
     margin-right: 2%;
     border-radius: 25px;
     position: relative;
-}
+} */
 
 /* !!!!(07.28) : 추가 */
-.popular p {
+/* .popular p {
     letter-spacing: -1px;
 }
 
@@ -527,17 +576,82 @@ section {
     height: 30px;
     right: 0;
     bottom: 0;
-}
+} */
 
 /* 새로운 미디어 목록 */
 .new {
-    width: calc(100% - 40px);
     height: auto;
     margin: 50px auto;
     /* border: 1px solid #333; */
 }
 
-.new .slide_container {
+.new .inside-wrapper {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  position: relative;
+}
+.new .inside-wrapper .img{
+    width: 100%;
+    height: 90%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 30px;
+    position: relative;
+}
+.new .inside-wrapper .img .title{
+    color: #ffffff;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 80%;
+}
+.new .inside-wrapper .img .icon{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+.new .swiper-slide:nth-child(1) .inside-wrapper{
+    background: url(../assets/indexView/main_new_00.jpg) center no-repeat;
+    background-size: cover;
+}
+.new .swiper-slide:nth-child(2) .inside-wrapper{
+    background: url(../assets/indexView/main_new_01.jpg) center no-repeat;
+    background-size: cover;
+}
+.new .swiper-slide:nth-child(3) .inside-wrapper{
+    background: url(../assets/indexView/main_new_02.jpg) center no-repeat;
+    background-size: cover;
+}
+.new .swiper-container {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 2rem auto;
+}
+.new .swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.new .swiper-wrapper {
+  width: max-content;
+  display: flex;
+}
+
+.new .inside-wrapper .item_info{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 50px;
+    background-color: #CEDFCC;
+    border-radius: 0 0 30px 30px;
+    text-align: center;
+}
+
+/* .new .slide_container {
     width: 300%;
     display: flex;
     transition: all .5s;
@@ -549,10 +663,10 @@ section {
     margin-right: 2%;
     border-radius: 25px;
     position: relative;
-}
+} */
 
 /* !!!!(07.28) : 추가 */
-.new p {
+/* .new p {
     letter-spacing: -1px;
 }
 
@@ -575,7 +689,7 @@ section {
     height: 30px;
     right: 0;
     bottom: 0;
-}
+} */
 
 /* 힐링클래스 배너 */
 .class_banner {

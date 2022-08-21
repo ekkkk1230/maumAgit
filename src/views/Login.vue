@@ -54,17 +54,16 @@ export default {
             console.log(kakao_account);
             this.login(kakao_account);
             alert("로그인 성공!");
+
+            this.$router.push({
+            path: 'index'
+            })
+
+            
           },
         });
       },
       async login(kakao_account) {
-        /* await this.$api("/api/login",{
-          param: [
-            { email: kakao_account.account_email },
-            { nickname: kakao_account.profile_nickname }
-          ]
-        }) */
-
         this.$store.commit('user', kakao_account)
       },
       kakaoLogout () {
@@ -74,8 +73,7 @@ export default {
           alert('로그아웃');
           this.$router.push({ path: '/' }) // 저장된거 서버에 업로드
         })
-      }
-
+      },
 
     },
 }

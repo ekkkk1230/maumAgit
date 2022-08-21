@@ -21,9 +21,9 @@
                 <!-- 일지쓰기 버튼 -->
                 <!-- !!!!(07.28) : 테스트용 추가 -->
                 <!-- <a class="write_btn cf" href="#none"> -->
-                <a class="write_btn cf" href="list-dairy.html">
+                <router-link to="/ListDairy" class="write_btn cf">
                     <img src="../assets/diaryMainView/write_btn.png" alt="write_btn">
-                </a>
+                </router-link>
                 
                 <!-- 달력 -->
                 <div class="calender">
@@ -31,6 +31,8 @@
                     <p>2022.07.18</p>
                     <img src="../assets/diaryMainView/all_calendar.png" alt="calender" class="calender_img">
                 </div>
+
+
             </div>
             <!-- 일지 아래부분 -->
             <div class="diary_bottom">
@@ -82,11 +84,14 @@
 
 <script>
 import Footer from '../components/Footer.vue';
+import CalendarView from '../views/CalendarView.vue'
+
 
 export default {
     name: 'diaryMain',
     components: {
         Footer : Footer,
+        CalendarView
     }
 }
 </script>
@@ -199,13 +204,32 @@ section{
 /* 달력 */
 .calender {
     width: calc(100% - 40px);
-    height: 600px;
+    height: 900px;
     /* background-color: red; */
     /* !!!!(07.29) : 마진높이 수정 */
     margin: 110px auto;
     position: relative;
     /* background-color: rebeccapurple; */
 }
+
+
+/*========================== 달력 =====================*/
+#single-date-picker {
+  margin: auto;
+}
+
+h1 {
+  color: #c7a3b5;
+  background: linear-gradient(to right, #e0caca, #d4b8ca, #c7a3b5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 60px;
+  font-weight: 300;
+  font-family: 'Lato', Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 
 .calender b, .calender p {
     color: #fff;
@@ -242,8 +266,8 @@ section{
     /* !!!!(07.29) : 굴곡 수정 */
     border-radius: 50px 50px 0 0;
     background-color: #fff;
-    position: absolute;
-    top: 80%;
+    position: fixed;
+    bottom: 0%;
     left: 50%;
     transform: translateX(-50%);
     /* 위치 조정(위로 슬라이드시 올라오게) */

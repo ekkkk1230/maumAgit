@@ -29,9 +29,9 @@
                             <p class="profile_title2">일반회원</p>
                         </div>
                         <!-- 설정 톱니바퀴 -->
-                        <a class="setting" href="setting.html">
+                        <router-link to="/SettingSub" class="setting">
                             <img src="../assets/settingMainView/setting_img.png" alt="setting_img">
-                        </a>
+                        </router-link>
                     </div>
                 </div>
                 <!-- 2. 3분할 상태창 -->
